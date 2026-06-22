@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>一间属于自己的房间</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Noto+Serif+SC:wght@300;400;500;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+    <!-- ===== 引导页 ===== -->
+    <div id="intro-overlay">
+        <div class="intro-particles" id="intro-particles"></div>
+        <div class="intro-content">
+            <p class="intro-quote">
+                要把图书馆锁上，你就锁上吧，<br>
+                但你锁不住我自由的心智，<br>
+                因为那是没有门、没有锁、没有闩的。
+            </p>
+            <p class="intro-author">
+                —— 弗吉尼亚·伍尔夫<br>
+                <span>《一间只属于自己的房间》</span>
+            </p>
+            <button class="intro-enter" id="intro-enter">进入房间</button>
+        </div>
+    </div>
+
+    <!-- ===== 主容器 ===== -->
+    <main id="room-container">
+        <!-- Canvas 房间场景 — JS 驱动渲染 -->
+        <canvas id="room-canvas"></canvas>
+
+        <!-- 效果叠加层 — Effects.js 动态创建 -->
+
+        <!-- 操作提示 -->
+        <div id="hint">点击房间中的物品，探索不同的角落</div>
+
+        <!-- 悬停提示 -->
+        <div id="tooltip" class="tooltip hidden"></div>
+    </main>
+
+    <!-- ===== 个人介绍面板 ===== -->
+    <div id="about-panel" class="content-panel">
+        <div class="panel-backdrop"></div>
+        <div class="panel-card">
+            <button class="panel-close" aria-label="关闭">&times;</button>
+            <div class="panel-inner" id="about-content"></div>
+        </div>
+    </div>
+
+    <!-- ===== 摄影作品面板 ===== -->
+    <div id="photography-panel" class="content-panel">
+        <div class="panel-backdrop"></div>
+        <div class="panel-card fullscreen-card">
+            <button class="panel-close" aria-label="关闭">&times;</button>
+            <div class="panel-inner" id="photography-content"></div>
+        </div>
+    </div>
+
+    <!-- ===== 设计作品面板 ===== -->
+    <div id="design-panel" class="content-panel">
+        <div class="panel-backdrop"></div>
+        <div class="panel-card fullscreen-card">
+            <button class="panel-close" aria-label="关闭">&times;</button>
+            <div class="panel-inner" id="design-content"></div>
+        </div>
+    </div>
+
+    <!-- ===== 自媒体面板 ===== -->
+    <div id="social-panel" class="content-panel">
+        <div class="panel-backdrop"></div>
+        <div class="panel-card">
+            <button class="panel-close" aria-label="关闭">&times;</button>
+            <div class="panel-inner" id="social-content"></div>
+        </div>
+    </div>
+
+    <!-- ===== 图片灯箱 ===== -->
+    <div id="lightbox" class="lightbox hidden">
+        <button class="lightbox-close" aria-label="关闭">&times;</button>
+        <button class="lightbox-prev" aria-label="上一张">&lsaquo;</button>
+        <button class="lightbox-next" aria-label="下一张">&rsaquo;</button>
+        <div class="lightbox-content">
+            <img id="lightbox-img" src="" alt="">
+            <p id="lightbox-caption"></p>
+        </div>
+    </div>
+
+    <!-- ===== 留言板面板 ===== -->
+    <div id="messages-panel" class="content-panel">
+        <div class="panel-backdrop"></div>
+        <div class="panel-card">
+            <button class="panel-close" aria-label="关闭">&times;</button>
+            <div class="panel-inner" id="messages-content"></div>
+        </div>
+    </div>
+
+    <!-- ===== DE 判定对话框 ===== -->
+    <div id="skill-check-dialog" class="skill-check-dialog"></div>
+
+    <!-- ===== 数字分身 — 聊天窗口 ===== -->
+    <button id="chat-toggle" class="chat-toggle" aria-label="打开聊天" title="杜鹃 — 管家">
+        <svg class="chat-mask-icon" viewBox="0 0 50 28" width="30" height="18">
+            <!-- 眼罩主体 -->
+            <path d="M2 14 Q8 2 16 6 L18 12 L25 8 L32 12 L34 6 Q42 2 48 14 Q40 24 34 18 L25 22 L16 18 Q10 24 2 14Z" fill="none" stroke="#F8F4F0" stroke-width="2"/>
+            <!-- 左眼孔 -->
+            <ellipse cx="16" cy="12" rx="5" ry="3.5" fill="none" stroke="#F8F4F0" stroke-width="1.2"/>
+            <!-- 右眼孔 -->
+            <ellipse cx="34" cy="12" rx="5" ry="3.5" fill="none" stroke="#F8F4F0" stroke-width="1.2"/>
+            <!-- 装饰点 -->
+            <circle cx="25" cy="14" r="1" fill="#F8F4F0" opacity="0.6"/>
+        </svg>
+    </button>
+
+    <div id="chat-panel" class="chat-panel">
+        <div class="chat-header">
+            <span class="chat-header-title">🪶 杜鹃 · 管家</span>
+            <button id="chat-close" class="chat-close" aria-label="关闭">&times;</button>
+        </div>
+        <div class="chat-messages" id="chat-messages"></div>
+        <div class="chat-quicks">
+            <button class="chat-quick">介绍一下你自己</button>
+            <button class="chat-quick">你喜欢什么风格</button>
+            <button class="chat-quick">怎么联系你</button>
+        </div>
+        <div class="chat-input-row">
+            <input type="text" id="chat-input" class="chat-input" placeholder="问我任何问题...">
+            <button id="chat-send" class="chat-send" aria-label="发送">→</button>
+        </div>
+    </div>
+
+    <!-- ===== JS ===== -->
+    <script src="js/data-loader.js"></script>
+    <script src="js/engine.js"></script>
+    <script src="js/interaction.js"></script>
+    <script src="js/effects.js"></script>
+    <script src="js/gallery.js"></script>
+    <script src="js/chat.js"></script>
+    <script src="js/tree-dialog.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>

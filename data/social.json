@@ -1,0 +1,55 @@
+{
+    "platforms": [
+        {
+            "name": "小红书",
+            "icon": "xiaohongshu",
+            "color": "#FF2442",
+            "url": "https://xhslink.com/m/5fbbWTCssLG",
+            "description": "分享设计作品、文艺感想"
+        },
+        {
+            "name": "豆瓣",
+            "icon": "douban",
+            "color": "#00B51D",
+            "url": "https://www.douban.com/people/LOIGENCY/",
+            "description": "工作学习干货分享"
+        },
+        {
+            "name": "抖音",
+            "icon": "douyin",
+            "color": "#000000",
+            "url": "#",
+            "description": "摄影作品、日常碎片（扫码关注）"
+        }
+    ],
+    "featuredArticles": [
+        {
+            "title": "英语学习系统方法【长期/应试】",
+            "platform": "豆瓣",
+            "url": "https://www.douban.com/doubanapp/dispatch?uri=%2Fgroup%2Ftopic%2F317330996&_spm_id=MjIwNDg0MjEz&_i=816987200dd0a25",
+            "summary": "如果你有长期学习英语的打算，或者想把英语当成一项自己能够熟练掌握的技能，这篇文章或许能给你带来帮助。",
+            "date": "2025"
+        },
+        {
+            "title": "AI相关的基础概念&AI博主推荐分享",
+            "platform": "豆瓣",
+            "url": "https://www.douban.com/doubanapp/dispatch?uri=%2Fgroup%2Ftopic%2F484430472&_spm_id=MjIwNDg0MjEz&_i=816987460dd0a25",
+            "summary": "目前我们生活、学习以及工作的过程中使用AI的频率越来越高，于是想要开设「AI使用指南」系列帖子，和大家一起学习AI相关内容。",
+            "date": "2026"
+        },
+        {
+            "title": "职场新人需要知道的劳动法知识",
+            "platform": "豆瓣",
+            "url": "https://www.douban.com/doubanapp/dispatch?uri=%2Fgroup%2Ftopic%2F486025426&_spm_id=MjIwNDg0MjEz&_i=816987660dd0a25",
+            "summary": "劳动法作为与普罗大众最息息相关的法律之一，对于刚入职or已经在工作中的uu来说，都很有必要学习一下。",
+            "date": "2026"
+        },
+        {
+            "title": "我愿意相信士兵就是团长的来世。",
+            "platform": "小红书",
+            "url": "http://xhslink.com/o/9ppU2RPyaYi",
+            "summary": "249你把我彻底毁了。",
+            "date": "2026"
+        }
+    ]
+}

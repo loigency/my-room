@@ -1,0 +1,77 @@
+{
+    "categories": ["美工设计", "同人创作"],
+    "works": [
+        {
+            "id": "mg-1",
+            "title": "",
+            "category": "美工设计",
+            "thumbnail": "assets/images/design/美工设计/1.png",
+            "images": ["assets/images/design/美工设计/1.png"],
+            "description": "",
+            "year": ""
+        },
+        {
+            "id": "mg-2",
+            "title": "",
+            "category": "美工设计",
+            "thumbnail": "assets/images/design/美工设计/2.png",
+            "images": ["assets/images/design/美工设计/2.png"],
+            "description": "",
+            "year": ""
+        },
+        {
+            "id": "mg-3",
+            "title": "",
+            "category": "美工设计",
+            "thumbnail": "assets/images/design/美工设计/3.png",
+            "images": ["assets/images/design/美工设计/3.png"],
+            "description": "",
+            "year": ""
+        },
+        {
+            "id": "mg-4",
+            "title": "",
+            "category": "美工设计",
+            "thumbnail": "assets/images/design/美工设计/4.png",
+            "images": ["assets/images/design/美工设计/4.png"],
+            "description": "",
+            "year": ""
+        },
+        {
+            "id": "tc-1",
+            "title": "",
+            "category": "同人创作",
+            "thumbnail": "assets/images/design/同人创作/1.jpg",
+            "images": ["assets/images/design/同人创作/1.jpg"],
+            "description": "",
+            "year": ""
+        },
+        {
+            "id": "tc-2",
+            "title": "",
+            "category": "同人创作",
+            "thumbnail": "assets/images/design/同人创作/2.png",
+            "images": ["assets/images/design/同人创作/2.png"],
+            "description": "",
+            "year": ""
+        },
+        {
+            "id": "tc-3",
+            "title": "",
+            "category": "同人创作",
+            "thumbnail": "assets/images/design/同人创作/3.png",
+            "images": ["assets/images/design/同人创作/3.png"],
+            "description": "",
+            "year": ""
+        },
+        {
+            "id": "tc-4",
+            "title": "",
+            "category": "同人创作",
+            "thumbnail": "assets/images/design/同人创作/4.png",
+            "images": ["assets/images/design/同人创作/4.png"],
+            "description": "",
+            "year": ""
+        }
+    ]
+}

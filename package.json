@@ -1,0 +1,23 @@
+{
+  "name": "art-room",
+  "version": "1.0.0",
+  "description": "> *\"A woman must have money and a room of her own if she is to write fiction.\"* — Virginia Woolf",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "xiaojia": "node server/xiaojia-api.js"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.104.1",
+    "cors": "^2.8.6",
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1"
+  }
+}

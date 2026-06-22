@@ -1,0 +1,11 @@
+# 不需要上传的
+node_modules/
+server/
+.claude/
+health-tracker/
+
+# 参考文件
+好家伙*.txt
+xiaojia-chat.html
+data/xiaojia-knowledge.json
+data/xiaojia-system-prompt.md
