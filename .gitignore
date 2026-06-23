@@ -16,3 +16,10 @@ data/xiaojia-knowledge.json
 data/xiaojia-system-prompt.md
 package*.json
 compress.cjs
+
+# wrangler files
+.wrangler
+.dev.vars*
+!.dev.vars.example
+.env*
+!.env.example
