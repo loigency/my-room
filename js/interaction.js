@@ -151,6 +151,9 @@ const Interaction = (() => {
   // ============================================================
   async function loadPanelContent(panelId) {
     const target = panelId.replace('-panel', '');
+    // 留言板是静态内容，跳过加载
+    if (target === 'messages') return;
+
     const contentEl = document.querySelector(`#${panelId} .panel-inner`);
     if (!contentEl) return;
 
@@ -163,16 +166,12 @@ const Interaction = (() => {
         case 'photography':  html = await renderPhotography();  break;
         case 'design':       html = await renderDesign();       break;
         case 'social':       html = await renderSocial();       break;
-        case 'messages':     html = renderMessages();           break;
         default:             html = '<p class="panel-error">未知的面板类型</p>';
       }
       contentEl.innerHTML = html;
 
       if (target === 'photography' || target === 'design') {
         bindFilterEvents(contentEl, target);
-      }
-      if (target === 'messages') {
-        bindMessageForm(contentEl);
       }
     } catch (err) {
       console.error(`Failed to load ${target}:`, err);
@@ -196,7 +195,7 @@ const Interaction = (() => {
     return `
       <div class="about-header">${avatarHtml}${placeholderHtml}<div><div class="about-name">${data.name}</div><div class="about-bio">${data.bio}</div></div></div>
       <hr class="panel-divider"><div class="about-detail">${detailHtml}</div>
-      ${timelineHtml?`<hr class="panel-divider"><h3 style="font-family:var(--font-display);font-size:1.1rem;color:var(--color-wood-dark);margin-bottom:12px;">创作历程</h3><div class="timeline">${timelineHtml}</div>`:''}`;
+      ${timelineHtml?`<hr class="panel-divider"><h3 style="font-family:var(--font-display);font-size:1.1rem;color:var(--color-wood-dark);margin-bottom:12px;">个人历程</h3><div class="timeline">${timelineHtml}</div>`:''}`;
   }
 
   // ---- 渲染 Photography ----
@@ -216,6 +215,7 @@ const Interaction = (() => {
       html += `
         <div class="cover-item" data-collection="${ci}">
           ${coverHtml}${placeholderHtml}
+          <div class="cover-caption">摄影集《我与我之间》</div>
         </div>`;
     });
     html += '</div>';
@@ -243,22 +243,18 @@ const Interaction = (() => {
     return html;
   }
 
-  // ---- 渲染留言板 ----
+  // ---- 渲染留言板（Cusdis） ----
   function renderMessages() {
-    const saved = JSON.parse(localStorage.getItem('room-messages') || '[]');
-    let html = '<h2 class="panel-title">留言板</h2><p class="panel-subtitle">Guest Book</p>';
-    html += '<div class="message-form"><textarea id="msg-input" class="msg-textarea" placeholder="留下你想说的话..." rows="3"></textarea>';
-    html += '<div class="msg-form-row"><input id="msg-name" class="msg-name" placeholder="你的名字（选填）"><button id="msg-submit" class="msg-submit">留下字条 📌</button></div></div>';
-    html += '<div class="message-list" id="message-list">';
-    if (saved.length === 0) {
-      html += '<p class="msg-empty">还没有留言，来做第一个留下字条的人吧。</p>';
-    } else {
-      saved.reverse().forEach(m => {
-        html += `<div class="msg-item"><div class="msg-meta"><span class="msg-author">${m.name||'匿名'}</span><span class="msg-time">${m.time||''}</span></div><div class="msg-text">${m.text}</div></div>`;
-      });
-    }
-    html += '</div>';
-    return html;
+    return `
+      <h2 class="panel-title">留言板</h2><p class="panel-subtitle">Guest Book</p>
+      <div id="cusdis_thread"
+        data-host="https://cusdis.com"
+        data-app-id="669da4e9-7a66-4955-b6dc-c7b749fb6b28"
+        data-page-id="loit-room"
+        data-page-url="https://loigency.github.io/my-room"
+        data-page-title="一间属于自己的房间">
+      </div>
+      <p class="msg-cusdis-hint">💬 留言由 Cusdis 提供支持，友善发言哦</p>`;
   }
 
   // ---- 渲染 Social ----
@@ -273,7 +269,7 @@ const Interaction = (() => {
       platforms.forEach(p=>{
         const icon = iconMap[p.icon]||iconMap['default'];
         if (p.icon === 'douyin' && p.url === '#') {
-          html+=`<div class="platform-card platform-card-qr"><div class="platform-icon" style="background:${p.color||'#000'}1a;color:${p.color||'#000'}">${icon}</div><div><div class="platform-name">${p.name}</div><div class="platform-desc">${p.description||''}</div></div><img src="assets/images/about/抖音.jpg" class="platform-qr" alt="抖音二维码" onclick="this.classList.toggle('expanded')"></div>`;
+          html+=`<div class="platform-card" onclick="document.getElementById('qr-modal').classList.add('active')"><div class="platform-icon" style="background:${p.color||'#000'}1a;color:${p.color||'#000'}">${icon}</div><div><div class="platform-name">${p.name}</div><div class="platform-desc">${p.description||''}</div></div></div>`;
         } else {
           html+=`<a href="${p.url}" class="platform-card" target="_blank" rel="noopener"><div class="platform-icon" style="background:${p.color||'#8B6914'}1a;color:${p.color||'#8B6914'}">${icon}</div><div><div class="platform-name">${p.name}</div><div class="platform-desc">${p.description||''}</div></div></a>`;
         }
@@ -289,32 +285,6 @@ const Interaction = (() => {
     }
     if (!platforms.length && !articles.length) html += '<p class="panel-loading">还没有添加内容，在 data/social.json 中编辑吧</p>';
     return html;
-  }
-
-  function bindMessageForm(container) {
-    const submitBtn = container.querySelector('#msg-submit');
-    const input = container.querySelector('#msg-input');
-    const nameInput = container.querySelector('#msg-name');
-    if (!submitBtn || !input) return;
-
-    submitBtn.addEventListener('click', () => {
-      const text = input.value.trim();
-      if (!text) return;
-      const name = (nameInput && nameInput.value.trim()) || '匿名';
-      const saved = JSON.parse(localStorage.getItem('room-messages') || '[]');
-      const now = new Date();
-      saved.push({ text, name, time: `${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,'0')}-${String(now.getDate()).padStart(2,'0')} ${String(now.getHours()).padStart(2,'0')}:${String(now.getMinutes()).padStart(2,'0')}` });
-      localStorage.setItem('room-messages', JSON.stringify(saved));
-      input.value = '';
-      if (nameInput) nameInput.value = '';
-      // 刷新留言列表
-      const list = container.querySelector('#message-list');
-      if (list) {
-        const reversed = [...saved].reverse();
-        list.innerHTML = reversed.map(m => `<div class="msg-item"><div class="msg-meta"><span class="msg-author">${m.name||'匿名'}</span><span class="msg-time">${m.time||''}</span></div><div class="msg-text">${m.text}</div></div>`).join('');
-      }
-      container.querySelector('.msg-empty')?.remove();
-    });
   }
 
   // ---- 筛选事件绑定 ----

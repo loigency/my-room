@@ -133,6 +133,24 @@
   }
 
   // ============================================================
+  // BGM 播放器
+  // ============================================================
+  let bgmPlaying = true;
+  window.toggleBGM = function() {
+    const audio = document.getElementById('bgm-audio');
+    const icon = document.getElementById('bgm-icon');
+    if (!audio || !icon) return;
+    if (bgmPlaying) {
+      audio.pause();
+      icon.textContent = '🔇';
+    } else {
+      audio.play().catch(() => {});
+      icon.textContent = '🎵';
+    }
+    bgmPlaying = !bgmPlaying;
+  };
+
+  // ============================================================
   // 启动
   // ============================================================
   if (document.readyState === 'loading') {

@@ -93,9 +93,37 @@
         <div class="panel-backdrop"></div>
         <div class="panel-card">
             <button class="panel-close" aria-label="关闭">&times;</button>
-            <div class="panel-inner" id="messages-content"></div>
+            <div class="panel-inner">
+                <h2 class="panel-title">留言板</h2>
+                <p class="panel-subtitle">Guest Book</p>
+                <div id="cusdis_thread"
+                    data-host="https://cusdis.com"
+                    data-app-id="669da4e9-7a66-4955-b6dc-c7b749fb6b28"
+                    data-page-id="loit-room"
+                    data-page-url="https://loigency.github.io/my-room"
+                    data-page-title="一间属于自己的房间">
+                </div>
+                <p class="msg-cusdis-hint">💬 留言由 Cusdis 提供支持，友善发言哦</p>
+            </div>
         </div>
     </div>
+
+    <!-- ===== 抖音二维码弹窗 ===== -->
+    <div id="qr-modal" class="qr-modal" onclick="this.classList.remove('active')">
+        <div class="qr-modal-content" onclick="event.stopPropagation()">
+            <img src="assets/images/about/抖音.jpg" alt="抖音二维码">
+            <p>扫码关注抖音</p>
+            <button onclick="document.getElementById('qr-modal').classList.remove('active')">关闭</button>
+        </div>
+    </div>
+
+    <!-- ===== BGM 播放器 ===== -->
+    <button id="bgm-toggle" class="bgm-toggle" title="音乐" onclick="toggleBGM()">
+        <span id="bgm-icon">🎵</span>
+    </button>
+    <audio id="bgm-audio" loop autoplay>
+        <source src="assets/Goldmund%20-%20Finding%20It%20There.mp3" type="audio/mpeg">
+    </audio>
 
     <!-- ===== DE 判定对话框 ===== -->
     <div id="skill-check-dialog" class="skill-check-dialog"></div>
@@ -132,6 +160,7 @@
     </div>
 
     <!-- ===== JS ===== -->
+    <script async defer src="https://cusdis.com/js/cusdis.es.js"></script>
     <script src="js/data-loader.js"></script>
     <script src="js/engine.js"></script>
     <script src="js/interaction.js"></script>
