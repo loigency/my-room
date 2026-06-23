@@ -4,6 +4,11 @@ server/
 .claude/
 health-tracker/
 
+# 原始大图 PNG（已转为 WebP）
+assets/images/photography/*.png
+assets/images/design/美工设计/*.png
+assets/images/design/同人创作/*.png
+
 # 参考文件
 好家伙*.txt
 xiaojia-chat.html
