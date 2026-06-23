@@ -14,3 +14,5 @@ assets/images/design/同人创作/*.png
 xiaojia-chat.html
 data/xiaojia-knowledge.json
 data/xiaojia-system-prompt.md
+package*.json
+compress.cjs
